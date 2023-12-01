@@ -1,0 +1,55 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  color: white;
+  background-color: black;
+}
+
+.App {
+  justify-content: center;
+  align-items: center;
+}
+
+Button {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.audio-button{
+  background-color: rgb(59, 55, 55);
+  display: inline;
+  margin-top: 15px;
+  margin-bottom: 40%;
+  
+}
+
+.seek-handle {
+  background-color: rgb(68, 68, 68);
+  display: flex;
+  max-width: fit-content;
+  margin-left: 25px;
+  
+}
+
+
+
+.navbar-style {
+  background-color: rgba(255, 255, 255, 0.226);
+  padding-left: 2%;
+}
+
+.quote-API {
+  text-align: center;
+}
+
+.player-container {
+  padding-left: 2%;
+}
+
+.fullpage {
+  padding-bottom: 30%;
+  max-width: fit-content;
+  padding-left: 2%;
+}
