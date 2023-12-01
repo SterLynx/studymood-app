@@ -56,21 +56,57 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ playlist }) => {
     const newIndex = currentTrackIndex + 1;
     if (newIndex < playlist.length) {
       setCurrentTrackIndex(newIndex);
-      setIsPlaying(true);
     }
   };
-
+  
   const playPrevious = () => {
     const newIndex = currentTrackIndex - 1;
     if (newIndex >= 0) {
       setCurrentTrackIndex(newIndex);
-      setIsPlaying(true);
     }
   };
-
+  
   const onEnded = () => {
-    playNext();
+    const newIndex = currentTrackIndex + 1;
+    if (newIndex < playlist.length) {
+      setCurrentTrackIndex(newIndex);
+    }
   };
+  
+  useEffect(() => {
+    const audioElement = audioRef.current;
+  
+    const handleAudioPlay = () => {
+      setIsPlaying(true);
+    };
+  
+    const handleAudioPause = () => {
+      setIsPlaying(false);
+    };
+  
+    if (audioElement) {
+      audioElement.addEventListener('play', handleAudioPlay);
+      audioElement.addEventListener('pause', handleAudioPause);
+    }
+  
+    return () => {
+      if (audioElement) {
+        audioElement.removeEventListener('play', handleAudioPlay);
+        audioElement.removeEventListener('pause', handleAudioPause);
+      }
+    };
+  }, [currentTrackIndex]); 
+  
+  useEffect(() => {
+    const audioElement = audioRef.current;
+  
+    if (audioElement) {
+      audioElement.src = playlist[currentTrackIndex]?.url; 
+      audioElement.load(); 
+      audioElement.play(); 
+    }
+  }, [currentTrackIndex]); 
+  
 
   // Too many issues with the time formatting, scrapped
   
