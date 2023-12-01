@@ -17,6 +17,15 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ playlist }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(0.5);
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume; 
+      setVolume(newVolume); 
+    }
+  };
 
   useEffect(() => {
     const audioElement = audioRef.current;
@@ -137,7 +146,21 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ playlist }) => {
             max={duration}
             value={currentTime}
             onChange={handleSeek}
+            
           />
+        </div>
+        <p className='volume-text'>Seek</p>
+        <div className='volume-control'>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.01}
+            value={volume}
+            onChange={handleVolumeChange}
+            className='volume-slider'
+          />
+          <p className='volume-text'>Volume</p>
         </div>
         <Button className='audio-button' onClick={playPrevious} disabled={currentTrackIndex === 0}>
           Previous
